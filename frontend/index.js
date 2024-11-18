@@ -154,6 +154,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         
         let top = document.querySelector('#top-btn');
+        window.onscroll(scrollFunction);
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                top.style.display = "block";
+            } else {
+                top.style.display = "none";
+            }
+        }
         top.addEventListener(topFunction());
         function topFunction() {
             document.body.scrollTop = 0;
