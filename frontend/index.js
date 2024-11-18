@@ -100,6 +100,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         };
 
+        const search = document.querySelector('#search');
+        search.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredData = data.filter(student => (
+                student.roll.toLowerCase().includes(searchTerm) ||
+                student.name.toLowerCase().includes(searchTerm) ||
+                (student.section || 'N/A').toLowerCase().includes(searchTerm)
+            ));
+            renderLeaderboard(filteredData);
+        });
         // Initialize the page
         populateSectionFilter();
         renderLeaderboard(data);
@@ -142,6 +152,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const sortedData = sortData(filteredData, 'hardSolved', hardSolvedDirection, true);
             renderLeaderboard(sortedData);
         });
+        
+        let top = document.querySelector('#top-btn');
+        top.addEventListener(topFunction());
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
 
     } catch (error) {
         console.error('Error fetching data:', error);
